@@ -1,0 +1,40 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "username": "gocha",
+      "password": "gocha"
+    }
+  ],
+  "login": [
+    {
+      "id": 1,
+      "username": "gocha",
+      "expire": "gocha"
+    }
+  ],
+  "houses": [
+    {
+      "id": 1,
+      "name": "海景房"
+    },
+    {
+      "id": 2,
+      "name": "fool"
+    },
+    {
+      "id": 3,
+      "name": "shit"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

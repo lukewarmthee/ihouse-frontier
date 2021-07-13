@@ -1,30 +1,54 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <TheHeader @show-login-form="drawer = !drawer" />
+  <router-view :drawer="drawer"></router-view>
+  <Footer />
 </template>
 
+<script>
+//first import it in
+import Footer from "./components/Footer.vue";
+import TheHeader from "./components/TheHeader.vue";
+
+export default {
+  name: "App",
+  data() {
+    return {
+      drawer: false,
+    };
+  },
+  components: {
+    TheHeader,
+    Footer,
+  },
+  methods: {},
+};
+</script>
+
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body {
+  font-family: "Comic Sans MS", "Poppins", sans-serif;
+  background: #f4f6f9;
 }
-
-#nav {
-  padding: 30px;
+.btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.btn:focus {
+  outline: none;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn:active {
+  transform: scale(0.98);
+}
+.btn-block {
+  display: block;
+  width: 75%;
 }
 </style>
