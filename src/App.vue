@@ -1,7 +1,7 @@
 <template>
   <TheHeader @show-login-form="drawer = !drawer" />
   <router-view :drawer="drawer"></router-view>
-  <Footer />
+  <Footer v-show="$route.path != '/' ? false : true" />
 </template>
 
 <script>
@@ -39,6 +39,9 @@ body {
   cursor: pointer;
   text-decoration: none;
   font-size: 15px;
+  font-family: inherit;
+}
+.center-btn {
   font-family: inherit;
 }
 .btn:focus {

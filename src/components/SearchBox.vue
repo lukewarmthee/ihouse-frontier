@@ -1,5 +1,5 @@
 <template>
-  <div class="searchBox">
+  <div class="searchBox" @keyup.enter="search">
     <el-tooltip
       class="item"
       effect="dark"
@@ -12,13 +12,14 @@
         type="text"
         v-model="keywords"
         value-key="name"
-        @keyup13="search"
       />
     </el-tooltip>
-    <button class="btn"><i class="el-icon-search"></i> Search</button>
+    <button class="btn" @click="search">
+      <i class="el-icon-search"></i> Search
+    </button>
     <div class="separate">
       <div class="autoComplete" :key="cpt.id" v-for="cpt in autoCompleteNames">
-        <p>{{ cpt.name }}</p>
+        <p>{{ cpt.houseDesc }}</p>
       </div>
     </div>
   </div>
@@ -37,15 +38,20 @@ export default {
   methods: {
     // get those housees' name just use the keyowrds
     async fetchAutoCompleteNames() {
-      const res = await fetch(`/api/houses`);
-      // const res = await fetch(`/api/houses/keywords?${this.keywords}`);
+      const res = await fetch("/api/houses/index/" + this.keywords);
       const data = await res.json();
-      return data;
+      return data.data;
     },
-    search() {},
+    search() {
+      this.$router.push({
+        name: "SearchHouses",
+        params: {
+          id: this.keywords,
+        },
+      });
+    },
     async autocomplete() {
       this.autoCompleteNames = await this.fetchAutoCompleteNames();
-      console.log(this.autoCompleteNames);
     },
   },
   watch: {
@@ -61,19 +67,19 @@ export default {
 </script>
 
 <style scoped >
-.separate{
+.separate {
   position: absolute;
-  z-index: 1000;
+  z-index: 2001;
 }
 .autoComplete {
   position: relative;
-  left: 6px;
+  left: 8px;
   background: rgb(228, 224, 224);
   width: 40px;
   cursor: pointer;
 }
 .autoComplete p {
-  background: rgb(196, 231, 255);
+  background: #fff;
   width: 248px;
   text-align: center;
   margin: 0.5px;
@@ -87,14 +93,11 @@ export default {
   align-items: center;
 }
 .searchBox input {
-  position: relative;
-  bottom: 2px;
-  right: 2px;
   text-align: center;
   color: #242629;
   border-color: #3ea6ff;
   border-width: 2px;
-  width: 250px;
+  width: 50%;
   height: 25px;
   margin: 0px;
   padding: 3px 7px;
@@ -108,7 +111,5 @@ export default {
   height: 30px;
   margin: 5px;
   font-size: x-small;
-  position: relative;
-  left: 3px;
 }
 </style>

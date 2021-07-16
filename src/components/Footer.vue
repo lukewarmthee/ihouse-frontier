@@ -8,7 +8,7 @@
 <style scoped>
 a {
   position: relative;
-  left: 32px;
+  left: 35%;
   color: bisque;
 }
 
@@ -18,7 +18,8 @@ p {
 
 footer {
   position: absolute;
-  bottom: 5px;
+  z-index: 2000;
   left: 44.5%;
+  bottom: 5px;
 }
 </style>

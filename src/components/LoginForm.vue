@@ -34,7 +34,12 @@
               content="输入用户名或邮箱"
               placement="top-end"
             >
-              <input type="pwd" v-model="userInfo.pwd" name="pwd" id="pwd" />
+              <input
+                type="password"
+                v-model="userInfo.pwd"
+                name="pwd"
+                id="pwd"
+              />
             </el-tooltip>
           </div>
 
@@ -106,21 +111,21 @@ export default {
       }
       // first just fetch the url
       // just make sure you await all of it
-      const res = await fetch("api/login/1", {
-        method: "GET",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(this.userInfo),
-      });
-      // never forget the (),json is a function
+      const res = await fetch(
+        "api/users?username=" +
+          this.userInfo.username +
+          "&password=" +
+          this.userInfo.pwd
+      );
       const data = await res.json();
       // if it's 200, then give it to me
-      if ((await res).status === 200) {
-        console.log(data.expire);
+      if ((await data.status) === 1) {
+        // try to get the session fucker
+        localStorage.userId = await data.data.uID;
         // 把用户信息放到本地存储中去
         localStorage.username = this.userInfo.username;
-        localStorage.expire = data.expire;
+        localStorage.nickname = await data.data.uNickName;
+        // localStorage.expire = data.expire;
         this.$notify({
           title: "提示信息",
           message: "登录成功",
@@ -129,8 +134,9 @@ export default {
           duration: 1000,
         });
         this.$router.push({
-          path: "/Home",
+          path: "/",
         });
+        location.reload();
       } else {
         // 登录失败提示
         this.$notify({
